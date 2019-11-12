@@ -35,9 +35,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $categoria)
     {
-        return response()->json($category);
+        return response()->json($categoria);
     }
 
     /**
@@ -47,9 +47,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $categoria)
     {
-        return response()->json($category->update($request->all()));
+        return response()->json($categoria->update($request->all()));
     }
 
     /**
@@ -58,8 +58,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $categoria)
     {
-        return response()->json($category->delete());
+        return response()->json($categoria->delete());
     }
 }
