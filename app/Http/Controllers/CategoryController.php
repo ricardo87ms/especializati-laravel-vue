@@ -13,9 +13,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Category::get());
+        return response()->json(Category::getResults($request->name));
     }
 
     /**
@@ -60,6 +60,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $categoria)
     {
-        return response()->json($categoria->delete());
+        return response()->json($categoria->delete(), 204);
     }
 }
