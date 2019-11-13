@@ -8,4 +8,12 @@ php artisan make:model Models\\Category -m
 
 php artisan make:controller CategoryController --resource
 
+php artisan make:seeder UsersTableSeeder
+
+php artisan db:seed
+
+php artisan make:seeder CategoriesTableSeeder
+
+php artisan make:factory CategoryFactory
+
 ```
