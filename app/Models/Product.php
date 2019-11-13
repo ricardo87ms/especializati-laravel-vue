@@ -10,12 +10,12 @@ class Product extends Model
 
     protected $fillable = ['category_id', 'name', 'description', 'image'];
 
-    public function getResults($data, $total)
+    public static function getResults($data, $total)
     {
         if (!isset($data['filter']) && !isset($data['name']) && !isset($data['description']))
-            return $this->paginate($total);
+            return self::paginate($total);
 
-        return $this->where(function ($query) use ($data) {
+        return self::where(function ($query) use ($data) {
                     if (isset($data['filter'])) {
                         $filter = $data['filter'];
                         $query->where('name', $filter);

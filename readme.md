@@ -16,4 +16,6 @@ php artisan make:seeder CategoriesTableSeeder
 
 php artisan make:factory CategoryFactory
 
+php artisan make:model Models\\Product -m
+
 ```
