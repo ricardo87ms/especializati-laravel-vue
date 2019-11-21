@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -27,7 +28,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProductFormRequest $request)
     {
         return response()->json(Product::create($request->all()), 200);
     }
@@ -50,7 +51,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $produto)
+    public function update(StoreUpdateProductFormRequest $request, Product $produto)
     {
         return response()->json($produto->update($request->all()));
     }
