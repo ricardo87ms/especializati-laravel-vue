@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Product;
 
-use App\Models\Category;
-
-class CategoryController extends Controller
+class ProductController extends Controller
 {
+
+    private $totalPage = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(Category::getResults($request->name));
+        return response()->json(Product::getResults($request->all(), $this->totalPage));
     }
 
     /**
@@ -26,7 +29,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json(Category::create($request->all()), 201);
+        //
     }
 
     /**
@@ -35,9 +38,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $categoria)
+    public function show($id)
     {
-        return response()->json($categoria);
+        //
     }
 
     /**
@@ -47,9 +50,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $categoria)
+    public function update(Request $request, $id)
     {
-        return response()->json($categoria->update($request->all()));
+        //
     }
 
     /**
@@ -58,8 +61,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $categoria)
+    public function destroy($id)
     {
-        return response()->json($categoria->delete(), 204);
+        //
     }
 }
