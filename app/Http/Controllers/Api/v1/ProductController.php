@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json(Product::create($request->all()), 200);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(Product::with('categoria')->findOrFail($id), 200);
     }
 
     /**
@@ -50,9 +50,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $produto)
     {
-        //
+        return response()->json($produto->update($request->all()));
     }
 
     /**
@@ -61,8 +61,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $produto)
     {
-        //
+        return response()->json($produto->delete(), 204);
     }
 }

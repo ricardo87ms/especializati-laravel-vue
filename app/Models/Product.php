@@ -13,9 +13,9 @@ class Product extends Model
     public static function getResults($data, $total)
     {
         if (!isset($data['filter']) && !isset($data['name']) && !isset($data['description']))
-            return self::paginate($total);
+            return self::with('categoria')->paginate($total);
 
-        return self::where(function ($query) use ($data) {
+        return self::with('categoria')->where(function ($query) use ($data) {
                     if (isset($data['filter'])) {
                         $filter = $data['filter'];
                         $query->where('name', $filter);
@@ -34,8 +34,8 @@ class Product extends Model
     }
 
 
-    public function category()
+    public function categoria()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
