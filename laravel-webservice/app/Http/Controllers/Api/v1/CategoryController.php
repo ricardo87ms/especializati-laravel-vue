@@ -66,4 +66,10 @@ class CategoryController extends Controller
     {
         return response()->json($categoria->delete(), 204);
     }
+
+    public function produtos(Category $categoria)
+    {
+        $produtos = $categoria->produtos()->paginate(10);
+        return response()->json(['categorias' => $categoria, 'produtos' => $produtos]);
+    }
 }
