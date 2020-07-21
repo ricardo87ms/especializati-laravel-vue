@@ -50,6 +50,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($request->expectsJson()) {
+            if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                return response()->json(['error' => 'Not found URI'], 404);
+            }
+
+            if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+                return response()->json(['error' => 'Not found URI'], 404);
+            }
+
+            if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+                return response()->json(['error' => 'Method not allowed'], 405);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }
