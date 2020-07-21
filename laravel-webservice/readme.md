@@ -18,4 +18,6 @@ php artisan make:factory CategoryFactory
 
 php artisan make:model Models\\Product -m
 
+php artisan storage:link
+
 ```

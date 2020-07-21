@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,25 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductFormRequest $request)
     {
-        return response()->json(Product::create($request->all()), 200);
+        $dadosFormulario = $request->all();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $nome = kebab_case($request->name);
+            $extensao = $request->image->extension();
+
+            $nomeArquivo = "{$nome}.{$extensao}";
+            $dadosFormulario['image'] = $nomeArquivo;
+
+            $upload = $request->image->storeAs('produtos', $nomeArquivo);
+
+            if (!$upload) {
+                return response()->json(['error' => 'Falhou a imagem'], 500);
+            }
+        }
+
+        $produto = Product::create($dadosFormulario);
+
+        return response()->json($produto, 200);
     }
 
     /**
@@ -53,7 +72,32 @@ class ProductController extends Controller
      */
     public function update(StoreUpdateProductFormRequest $request, Product $produto)
     {
-        return response()->json($produto->update($request->all()));
+        $dadosFormulario = $request->all();
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            if ($produto->image) {
+                if (Storage::exists("produtos/{$produto->image}")) {
+                    Storage::delete("produtos/{$produto->image}");
+                }
+            }
+
+            $nome = kebab_case($request->name);
+            $extensao = $request->image->extension();
+
+            $nomeArquivo = "{$nome}.{$extensao}";
+            $dadosFormulario['image'] = $nomeArquivo;
+
+            $upload = $request->image->storeAs('produtos', $nomeArquivo);
+
+            if (!$upload) {
+                return response()->json(['error' => 'Falhou a imagem'], 500);
+            }
+        }
+
+        $produto->update($dadosFormulario);
+
+        return response()->json($produto);
     }
 
     /**
@@ -64,6 +108,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $produto)
     {
+        if (Storage::exists("produtos/{$produto->image}")) {
+            Storage::delete("produtos/{$produto->image}");
+        }
         return response()->json($produto->delete(), 204);
     }
 }
