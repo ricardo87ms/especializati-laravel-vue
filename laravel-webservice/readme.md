@@ -18,6 +18,8 @@ php artisan make:factory CategoryFactory
 
 php artisan make:model Models\\Product -m
 
+pho artisan make:request StoreUpdateProductFormRequest
+
 php artisan storage:link
 
 ```

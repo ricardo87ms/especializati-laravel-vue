@@ -51,7 +51,9 @@ class CategoryController extends Controller
      */
     public function update(StoreUpdateCategoryFormRequest $request, Category $categoria)
     {
-        return response()->json($categoria->update($request->all()));
+        $categoria->update($request->all());
+
+        return response()->json($categoria);
     }
 
     /**

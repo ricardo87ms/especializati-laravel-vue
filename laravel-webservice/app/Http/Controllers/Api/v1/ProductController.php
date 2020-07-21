@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProductFormRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -34,7 +35,7 @@ class ProductController extends Controller
         $dadosFormulario = $request->all();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $nome = kebab_case($request->name);
+            $nome = Str::of($request->name)->kebab();
             $extensao = $request->image->extension();
 
             $nomeArquivo = "{$nome}.{$extensao}";
@@ -82,7 +83,7 @@ class ProductController extends Controller
                 }
             }
 
-            $nome = kebab_case($request->name);
+            $nome = Str::of($request->name)->kebab();
             $extensao = $request->image->extension();
 
             $nomeArquivo = "{$nome}.{$extensao}";
