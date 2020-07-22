@@ -62,6 +62,14 @@ class Handler extends ExceptionHandler
             if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
                 return response()->json(['error' => 'Method not allowed'], 405);
             }
+
+            if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                return response()->json(['token_expired'], $e->getStatusCode());
+            }
+
+            if ($exception instanceof Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                return response()->json(['token_invalid'], $e->getStatusCode());
+            }
         }
 
         return parent::render($request, $exception);
