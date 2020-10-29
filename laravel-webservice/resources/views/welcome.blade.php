@@ -81,6 +81,8 @@
             @endif
 
             <div class="content">
+                <teste-component></teste-component>
+
                 <div class="title m-b-md">
                     Laravel
                 </div>
