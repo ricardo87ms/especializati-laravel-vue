@@ -30,6 +30,10 @@ php artisan jwt:secret
 
 php artisan make:controller Auth\\AuthApiController
 
+composer require laravel/ui:^2.4
+
+php artisan ui vue
+
 
 ```
 
