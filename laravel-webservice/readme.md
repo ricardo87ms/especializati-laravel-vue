@@ -1,6 +1,6 @@
 # Especializa TI API Laravel
 
-## Comandos Utilizados
+## Comandos Utilizados Laravel
 
 ```
 
@@ -35,6 +35,17 @@ composer require laravel/ui:^2.4
 php artisan ui vue
 
 
+```
+
+## Comandos Utilizados Vue
+
+```
+
+npm install
+
+npm run watch
+
+npm install --save-dev vue-router vuex
 ```
 
 ## Links Uteis
